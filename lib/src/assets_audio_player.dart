@@ -271,6 +271,12 @@ class AssetsAudioPlayer {
   ///             return Text(isPlaying ? "Pause" : "Play");
   ///         }),
   ValueStream<bool> get isPlaying => _isPlaying.stream;
+  String get getCurrentAudioTitle => _current.value.audio.audio.metas.title;
+  String get getCurrentAudioArtist => _current.value.audio.audio.metas.artist;
+  Map<String, dynamic> get getCurrentAudioextra =>
+      _current.value.audio.audio.metas.extra;
+  String get getCurrentAudioAlbum => _current.value.audio.audio.metas.album;
+  MetasImage get getCurrentAudioImage => _current.value.audio.audio.metas.image;
 
   ///represent the android session id
   ///does nothing on others platforms
@@ -760,7 +766,7 @@ class AssetsAudioPlayer {
 
   Future<void> _openPlaylistCurrent(
       {bool autoStart = true, Duration seek}) async {
-    if (_playlist != null && _isBuffering.value == false) {
+    if (_playlist != null) {
       return _open(
         _playlist.currentAudio(),
         forcedVolume: _playlist.volume,
